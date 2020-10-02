@@ -3,50 +3,69 @@ const Engine = Matter.Engine;
 const World = Matter.World;
 const Bodies = Matter.Bodies;
 const Body = Matter.Body;
-
-var paper,bin,paperIMG,paper2,bin2,bin3,groundO;
-
+const Render = Matter.Render;
+var dustbinObj, paperObject,groundObject	
+var world;
 
 
 function setup() {
-	createCanvas(800, 700);
+	createCanvas(1600, 700);
+	rectMode(CENTER);
 
 
 	engine = Engine.create();
 	world = engine.world;
+	
+	paperObject=new paper(200,450,70);
+	groundObject=new ground(width/2,670,width,20);
+	dustbinObj=new dustbin(1200,650);
+	//Create a Ground
+	
 
-  //Create the Bodies Here.
-  groundO=new ground(width/2,670,width,20);
-    paper= new PAPER(50,400,60)     
-    bin= new HOLDER(670,600,20,250);
-    bin2= new HOLDER(500,600,20,250);
-    bin3= new HOLDER(585,650,200,200);
-	 
+	var render = Render.create({
+	  element: document.body,
+	  engine: engine,
+	  options: {
+	    width: 1600,
+	    height: 700,
+	    wireframes: false
+	  }
+	});
+
 	Engine.run(engine);
-   
+	Render.run(render);
+  
 }
 
 
 function draw() {
   rectMode(CENTER);
-  background(255);
-  
+  background(230);
+ 
+  groundObject.display(); 
+  dustbinObj.display();
+  paperObject.display();
   
 
-  groundO.display();
-  
-  bin3.Image_display();
-  bin.display();
-  bin2.display();
-  paper.display();
+
   
   
+ 
   
+  
+ 
 }
+
 function keyPressed() {
-  if (keyCode === UP_ARROW) {
+  	if (keyCode === UP_ARROW) {
 
-    Matter.Body.applyForce(paper.body,paper.body.position,{x:60,y:-120});
-  
-  }
+    	Matter.Body.applyForce(paperObject.body,paperObject.body.position,{x:130,y:-145});
+
+    
+  	}
 }
+
+
+
+
+
